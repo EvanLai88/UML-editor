@@ -1,13 +1,16 @@
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
+import javax.swing.event.MouseInputListener;
 
-public class ToolBar {
+
+public class ToolBar implements MouseInputListener {
     private static JToolBar toolbar;
-    private static JButton selectBtn, assoBtn, genBtn, comBtn, classBtn, useCaseBtn;
+    private static ToolbarBtn selectBtn, assoBtn, genBtn, comBtn, classBtn, useCaseBtn;
 
     public ToolBar() {
         ImageIcon selIcon = new ImageIcon("img/select.png");
@@ -18,14 +21,14 @@ public class ToolBar {
         ImageIcon useIcon = new ImageIcon("img/usecase.png");
         
         toolbar = new JToolBar(null, JToolBar.VERTICAL);
-        selectBtn = new JButton(selIcon);
-        assoBtn = new JButton(assIcon);
-        genBtn = new JButton(genIcon);
-        comBtn = new JButton(comIcon);
-        classBtn = new JButton(claIcon);
-        useCaseBtn = new JButton(useIcon);
 
-        toolbar.setFloatable(false);
+        selectBtn = new ToolbarBtn("select", selIcon);
+        assoBtn = new ToolbarBtn("associate", assIcon);
+        genBtn = new ToolbarBtn("general", genIcon);
+        comBtn = new ToolbarBtn("composite", comIcon);
+        classBtn = new ToolbarBtn("class", claIcon);
+        useCaseBtn = new ToolbarBtn("use case", useIcon);
+
         toolbar.add(selectBtn);
         toolbar.add(assoBtn);
         toolbar.add(genBtn);
@@ -35,10 +38,54 @@ public class ToolBar {
 
         Border blackline = BorderFactory.createLineBorder(Color.black);
         toolbar.setBorder(blackline);
+        toolbar.setFloatable(false);
 
     }
 
     public static JToolBar getInstance() {
         return toolbar;
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

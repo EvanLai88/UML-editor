@@ -1,5 +1,4 @@
 import java.awt.Color;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
