@@ -2,6 +2,8 @@ import javax.swing.JFrame;
 import javax.tools.Tool;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionListener;
 
 public class UMLeditor extends JFrame {
     private Canvas canvas;
@@ -12,20 +14,31 @@ public class UMLeditor extends JFrame {
         canvas = new Canvas();
         menubar = new MenuBar();
         toolbar = new ToolBar();
+        Oval test = new Oval();
+        ClassTable classTable = new ClassTable();
 
+        // test.setBounds(50, 50, 100, 70);
+
+        canvas.add(test);
+        canvas.add(classTable);
         setLayout(new BorderLayout());
-        add(MenuBar.getInstance(), BorderLayout.NORTH);
-        add(ToolBar.getInstance(), BorderLayout.WEST);
-        add(Canvas.getInstance(), BorderLayout.CENTER);
+        add(menubar, BorderLayout.NORTH);
+        add(toolbar, BorderLayout.WEST);
+        add(canvas, BorderLayout.CENTER);
     }
 
     public static void main(String[] args) {
         UMLeditor mainWindow = new UMLeditor();
+        
         mainWindow.setTitle("UML editor");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setSize(900, 675);
         mainWindow.setLocationRelativeTo(null);
         mainWindow.setResizable(false);
         mainWindow.setVisible(true);
+    }
+
+    public void changeMode() {
+
     }
 }

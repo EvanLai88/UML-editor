@@ -1,18 +1,14 @@
 import java.awt.Color;
 import javax.swing.JPanel;
+import javax.swing.LayoutStyle;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 
-public class Canvas {
-    private static JPanel canvas;
-
+public class Canvas extends JPanel {
     public Canvas() {
-        canvas = new JPanel();
+        super();
+        setLayout(null);
         Border blackline = BorderFactory.createLineBorder(Color.black);
-        canvas.setBorder(blackline);
-    }
-
-    public static JPanel getInstance() {
-        return canvas;
+        setBorder(blackline);
     }
 }

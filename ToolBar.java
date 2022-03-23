@@ -1,91 +1,83 @@
 import java.awt.Color;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
-import javax.swing.event.MouseInputListener;
+import javax.swing.ComboBoxEditor;
+import javax.swing.AbstractAction;
 
-
-public class ToolBar implements MouseInputListener {
-    private static JToolBar toolbar;
-    private static ToolbarBtn selectBtn, assoBtn, genBtn, comBtn, classBtn, useCaseBtn;
+public class ToolBar extends JToolBar {
+    public UMLeditor uml;
+    public JButton selectBtn, assoBtn, genBtn, comBtn, classBtn, useCaseBtn;
+    public JButton mode = null;
+    public ArrayList<JButton> BtnList;
+    public Color unSet = Color.LIGHT_GRAY;
+    public Color set = Color.BLACK;
 
     public ToolBar() {
-        ImageIcon selIcon = new ImageIcon("img/select.png");
-        ImageIcon assIcon = new ImageIcon("img/associate.png");
-        ImageIcon genIcon = new ImageIcon("img/general.png");
-        ImageIcon comIcon = new ImageIcon("img/composite.png");
-        ImageIcon claIcon = new ImageIcon("img/class.png");
-        ImageIcon useIcon = new ImageIcon("img/usecase.png");
+
+        selectBtn = new JButton(new ImageIcon("img/select.png"));
+        assoBtn = new JButton(new ImageIcon("img/associate.png"));
+        genBtn = new JButton(new ImageIcon("img/general.png"));
+        comBtn = new JButton(new ImageIcon("img/composite.png"));
+        classBtn = new JButton(new ImageIcon("img/class.png"));
+        useCaseBtn = new JButton(new ImageIcon("img/usecase.png"));
         
-        toolbar = new JToolBar(null, JToolBar.VERTICAL);
+        
+        BtnList = new ArrayList<JButton>();
+        BtnList.add(selectBtn);
+        BtnList.add(assoBtn);
+        BtnList.add(genBtn);
+        BtnList.add(comBtn);
+        BtnList.add(classBtn);
+        BtnList.add(useCaseBtn);
+        
+        for(JButton b: BtnList) {
+            btnInit(b);
+            b.addActionListener(new AbstractAction() {
+                
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    for (JButton jb: BtnList) {
+                        jb.setBackground(unSet);
+                    }
+                    b.setBackground(set);
+                    mode = b;
+                    // System.out.println(mode.getName());
+                }
+                
+            });
+        }
 
-        selectBtn = new ToolbarBtn("select", selIcon);
-        assoBtn = new ToolbarBtn("associate", assIcon);
-        genBtn = new ToolbarBtn("general", genIcon);
-        comBtn = new ToolbarBtn("composite", comIcon);
-        classBtn = new ToolbarBtn("class", claIcon);
-        useCaseBtn = new ToolbarBtn("use case", useIcon);
-
-        toolbar.add(selectBtn);
-        toolbar.add(assoBtn);
-        toolbar.add(genBtn);
-        toolbar.add(comBtn);
-        toolbar.add(classBtn);
-        toolbar.add(useCaseBtn);
-
+        selectBtn.setName("select");
+        assoBtn.setName("associate");
+        genBtn.setName("general");
+        comBtn.setName("composite");
+        classBtn.setName("class");
+        useCaseBtn.setName("use Case");
+        
+        setOrientation(VERTICAL);
+        add(selectBtn);
+        add(assoBtn);
+        add(genBtn);
+        add(comBtn);
+        add(classBtn);
+        add(useCaseBtn);
+        
         Border blackline = BorderFactory.createLineBorder(Color.black);
-        toolbar.setBorder(blackline);
-        toolbar.setFloatable(false);
+        setBorder(blackline);
+        setFloatable(false);
 
     }
 
-    public static JToolBar getInstance() {
-        return toolbar;
+    private void btnInit(JButton btn) {
+        btn.setBackground(Color.LIGHT_GRAY);
+        btn.setOpaque(true);
+        btn.setBorderPainted(false);
+        btn.setFocusPainted(false);
     }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
 }
