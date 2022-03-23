@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 
 public class Canvas extends JPanel {
     private static Canvas instance = null;
@@ -20,6 +19,7 @@ public class Canvas extends JPanel {
     public Canvas() {
         super();
         setLayout(null);
+        setBackground(Color.WHITE);
         Border blackline = BorderFactory.createLineBorder(Color.BLACK);
         setBorder(blackline);
         mode = "";
