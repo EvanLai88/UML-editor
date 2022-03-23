@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxEditor;
 import javax.swing.AbstractAction;
 
 public class ToolBar extends JToolBar {

@@ -1,12 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.BorderFactory;
 
 public class ClassTable extends JPanel {
     private JLabel label;
