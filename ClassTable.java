@@ -6,8 +6,8 @@ import javax.swing.JPanel;
 public class ClassTable extends JPanel {
     public ClassTable() {
         setSize(100,130);
-        // setBackground(Color.WHITE);
-        // setOpaque(true);
+        setBackground(Color.WHITE);
+        setOpaque(true);
         setVisible(true);
     }
 

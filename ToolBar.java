@@ -11,6 +11,7 @@ import javax.swing.ComboBoxEditor;
 import javax.swing.AbstractAction;
 
 public class ToolBar extends JToolBar {
+    private Canvas canvas;
     public UMLeditor uml;
     public JButton selectBtn, assoBtn, genBtn, comBtn, classBtn, useCaseBtn;
     public JButton mode = null;
@@ -18,8 +19,8 @@ public class ToolBar extends JToolBar {
     public Color unSet = Color.LIGHT_GRAY;
     public Color set = Color.BLACK;
 
-    public ToolBar() {
-
+    public ToolBar(Canvas c) {
+        canvas = c;
         selectBtn = new JButton(new ImageIcon("img/select.png"));
         assoBtn = new JButton(new ImageIcon("img/associate.png"));
         genBtn = new JButton(new ImageIcon("img/general.png"));
@@ -47,6 +48,7 @@ public class ToolBar extends JToolBar {
                     }
                     b.setBackground(set);
                     mode = b;
+                    canvas.setMode(mode.getName());
                     // System.out.println(mode.getName());
                 }
                 
