@@ -10,11 +10,11 @@ import javax.swing.BorderFactory;
 
 public class Canvas extends JPanel {
     private static Canvas instance = null;
+    private static String mode;
     private int oldX, oldY, currentX, currentY;
-    private String mode;
     private Oval oval;
     private ClassTable classtable;
-    private ArrayList<JPanel> panelList;
+    private ArrayList<JPanel> panelList, selectedPanel;
 
     public Canvas() {
         super();
@@ -30,11 +30,11 @@ public class Canvas extends JPanel {
             public void mousePressed(MouseEvent e) {
                 oldX = e.getX();
                 oldY = e.getY();
-                System.out.println("Pressed");
+                // System.out.println("Pressed");
             }
             
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Clicked");
+                // System.out.println("Clicked");
                 switch(mode) {
                     case "":
                         break;
@@ -46,7 +46,7 @@ public class Canvas extends JPanel {
                         classtable.setBounds(oldX, oldY, classtable.getWidth(), classtable.getHeight());
                         add(classtable);
                         panelList.add(classtable);
-                        System.out.println("class added");
+                        // System.out.println("class added");
                         revalidate();
                         repaint();
                         break;
@@ -56,7 +56,7 @@ public class Canvas extends JPanel {
                         oval.setBounds(oldX, oldY, oval.getWidth(), oval.getHeight());
                         add(oval);
                         panelList.add(oval);
-                        System.out.println("useCase added");
+                        // System.out.println("useCase added");
                         revalidate();
                         repaint();
                         break;
@@ -85,7 +85,7 @@ public class Canvas extends JPanel {
         return instance;
     }
 
-    public void setMode(String m) {
+    public static void setMode(String m) {
         mode = m;
         // System.out.println(mode.getName());
     }

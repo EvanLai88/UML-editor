@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ClassTable extends JPanel {
+    private boolean select;
     private JLabel label;
     public ClassTable() {
         super();
@@ -49,5 +50,29 @@ public class ClassTable extends JPanel {
         jp.setBackground(Color.WHITE);
         jp.setOpaque(true);
         jp.setVisible(true);
+    }
+
+
+
+    public boolean isSelected() {
+        return select;
+    }
+
+
+    public class Square extends JPanel {
+        public Square() {
+            super();
+            setSize(10,10);
+            setBackground(Color.BLACK);
+            setOpaque(true);
+            setVisible(true);
+        }
+    }
+
+    private void initPort(Square s) {
+        s.setSize(10,10);
+        s.setBackground(Color.BLACK);
+        s.setOpaque(true);
+        s.setVisible(false);
     }
 }

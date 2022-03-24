@@ -1,22 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-public class Oval extends JPanel {
-    private JLabel label;
-
+public class Oval extends Object {
     public Oval() {
-        super();
-        setSize(100,70);
-        setBackground(Color.WHITE);
-        setOpaque(true);
-        setVisible(true);
-        setLayout(new GridBagLayout());
-        label = new JLabel("Usage");
-        add(label);
+        super("Usage", 100, 70, 30, 14, 80, 40);
     }
     
     @Override
@@ -25,4 +12,7 @@ public class Oval extends JPanel {
         g.setColor(Color.BLACK);
         g.drawOval(5, 5, 90, 60);
     }
+
+
+    
 }

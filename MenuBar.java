@@ -3,12 +3,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class MenuBar extends JMenuBar {
-    private Canvas canvas;
+    // private Canvas canvas;
     public JMenu fileMenu, editMenu;
     public JMenuItem changeName, group, ungroup;
 
-    public MenuBar(Canvas c) {
-        canvas = c;
+    public MenuBar() {
+        // canvas = c;
         fileMenu = new JMenu("File");
         editMenu = new JMenu("Edit");
         changeName = new JMenuItem("change object name");
