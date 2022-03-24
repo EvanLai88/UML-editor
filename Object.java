@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,9 +11,11 @@ public class Object extends JPanel {
     protected Canvas canvas;
     protected boolean select;
     protected String Name;
+    protected Square p1, p2, p3, p4;
     protected JLabel label;
     protected JPanel ports;
     protected int oldX, oldY, currentX, currentY;
+    protected ArrayList<Object> objectList;
 
     public Object(Canvas instance, String name, int width, int height) {
         Name = name;
@@ -28,10 +31,10 @@ public class Object extends JPanel {
         // add(label);
         select = false;
 
-        Square p1 = new Square();
-        Square p2 = new Square();
-        Square p3 = new Square();
-        Square p4 = new Square();
+        p1 = new Square();
+        p2 = new Square();
+        p3 = new Square();
+        p4 = new Square();
 
         initPort(p1);
         initPort(p2);
@@ -60,12 +63,12 @@ public class Object extends JPanel {
                 // System.out.println(e.getY());
                 oldX = getBounds().x+e.getX();
                 oldY = getBounds().y+e.getY();
+                for(Object o:canvas.selectedPanel()){
+                    o.setSelect(false);
+                }
+                
                 if (canvas.getMode() == "select") {
-                    select = true;
-                    p1.setVisible(true);
-                    p2.setVisible(true);
-                    p3.setVisible(true);
-                    p4.setVisible(true);
+                    setSelect(true);
                 }
                 else if (canvas.getMode() == "associate") {
 
@@ -93,11 +96,37 @@ public class Object extends JPanel {
                 currentX = e.getX();
                 currentY = e.getY();
 
-                setBounds(getBounds().x + (currentX-oldX), getBounds().y + (currentY-oldY), width, height);
-                revalidate();
-                repaint();
+                if (canvas.getMode() == "select") {
+                    setBounds(getBounds().x + (currentX-oldX), getBounds().y + (currentY-oldY), width, height);
+                    revalidate();
+                    repaint();
+                }
+                else if (canvas.getMode() == "associate") {
+
+                }
+                else if (canvas.getMode() == "composite") {
+
+                }
+                else if (canvas.getMode() == "general") {
+
+                }
+                else if (canvas.getMode() == "class") {
+
+                }
+                else if (canvas.getMode() == "use Case") {
+
+                }
             }
         });
+    }
+
+    public void setSelect(boolean isSet) {
+        select = isSet;
+        p1.setVisible(isSet);
+        p2.setVisible(isSet);
+        p3.setVisible(isSet);
+        p4.setVisible(isSet);
+        
     }
 
     public boolean isSelected() {

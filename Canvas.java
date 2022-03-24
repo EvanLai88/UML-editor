@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
+import javax.swing.JLayeredPane;
 
-public class Canvas extends JPanel {
+public class Canvas extends JLayeredPane {
     private  String mode;
     private int oldX, oldY, currentX, currentY;
     private Oval oval;
     private ClassTable classtable;
-    private ArrayList<JPanel> panelList, selectedPanel;
+    private ArrayList<Object> panelList, selectedPanel;
 
     public Canvas() {
         super();
@@ -23,7 +24,8 @@ public class Canvas extends JPanel {
         setBorder(blackline);
         mode = "";
 
-        panelList = new ArrayList<>();
+        panelList = new ArrayList<Object>();
+        selectedPanel = new ArrayList<Object>();
         
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -72,9 +74,13 @@ public class Canvas extends JPanel {
     }
 
     public void newPanelInit(Object o, int x, int y) {
+        for(Object obj: selectedPanel()){
+            obj.setSelect(false);
+        }
         o.setBounds(x,y,o.getWidth(),o.getHeight());
         o.setVisible(true);
         add(o);
+        moveToFront(o);
         panelList.add(o);
         // System.out.println("class added");
         // System.out.println(getMode());
@@ -89,5 +95,15 @@ public class Canvas extends JPanel {
 
     public String getMode() {
         return mode;
+    }
+
+    public ArrayList<Object> selectedPanel() {
+        selectedPanel.clear();
+        for (Object o: panelList) {
+            if (o.isSelected()) {
+                selectedPanel.add(o);
+            }
+        }
+        return selectedPanel;
     }
 }
