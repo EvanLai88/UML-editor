@@ -1,29 +1,31 @@
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.GridBagLayout;
-import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseMotionAdapter;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Object extends JPanel {
+    protected Canvas canvas;
     protected boolean select;
+    protected String Name;
     protected JLabel label;
     protected JPanel ports;
+    protected int oldX, oldY, currentX, currentY;
 
-    public Object(String name, int width, int height, int x, int y, int Lwid, int Lhei) {
+    public Object(Canvas instance, String name, int width, int height) {
+        Name = name;
+        canvas = instance;
         setBackground(Color.WHITE);
-        setOpaque(true);
+        setOpaque(false);
         setVisible(true);
         setLayout(null);
-        label = new JLabel(name);
         setSize(width,height);
-        label.setBounds(x, y, Lwid, Lhei);
-        label.setVisible(true);
-        add(label);
+        // label = new JLabel(name);
+        // label.setBounds(x, y, Lwid, Lhei);
+        // label.setVisible(true);
+        // add(label);
         select = false;
 
         Square p1 = new Square();
@@ -47,12 +49,53 @@ public class Object extends JPanel {
 
         addMouseListener(new MouseAdapter() {
             @Override
+            public void mousePressed(MouseEvent e) {
+                oldX = e.getX();
+                oldY = e.getY();
+            }
+
+            @Override
             public void mouseClicked(MouseEvent e) {
-                select = true;
-                p1.setVisible(true);
-                p2.setVisible(true);
-                p3.setVisible(true);
-                p4.setVisible(true);
+                // System.out.println(e.getX());
+                // System.out.println(e.getY());
+                oldX = getBounds().x+e.getX();
+                oldY = getBounds().y+e.getY();
+                if (canvas.getMode() == "select") {
+                    select = true;
+                    p1.setVisible(true);
+                    p2.setVisible(true);
+                    p3.setVisible(true);
+                    p4.setVisible(true);
+                }
+                else if (canvas.getMode() == "associate") {
+
+                }
+                else if (canvas.getMode() == "general") {
+                    
+                }
+                else if (canvas.getMode() == "composite") {
+                    
+                }
+                else if (canvas.getMode() == "class") {
+                    // System.out.println("Object:class");
+                    canvas.createClassPanel(oldX, oldY);
+                }
+                else if (canvas.getMode() == "use Case") {
+                    // System.out.println("Object:useCase");
+                    canvas.createUsagePanel(oldX, oldY);
+                }
+            }
+        });
+        
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                currentX = e.getX();
+                currentY = e.getY();
+
+                setBounds(getBounds().x + (currentX-oldX), getBounds().y + (currentY-oldY), width, height);
+                revalidate();
+                repaint();
             }
         });
     }

@@ -9,8 +9,7 @@ import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 
 public class Canvas extends JPanel {
-    private static Canvas instance = null;
-    private static String mode;
+    private  String mode;
     private int oldX, oldY, currentX, currentY;
     private Oval oval;
     private ClassTable classtable;
@@ -42,23 +41,11 @@ public class Canvas extends JPanel {
                         break;
 
                     case "class":
-                        classtable = new ClassTable();
-                        classtable.setBounds(oldX, oldY, classtable.getWidth(), classtable.getHeight());
-                        add(classtable);
-                        panelList.add(classtable);
-                        // System.out.println("class added");
-                        revalidate();
-                        repaint();
+                        createClassPanel(oldX, oldY);
                         break;
 
                     case "use Case":
-                        oval = new Oval();
-                        oval.setBounds(oldX, oldY, oval.getWidth(), oval.getHeight());
-                        add(oval);
-                        panelList.add(oval);
-                        // System.out.println("useCase added");
-                        revalidate();
-                        repaint();
+                        createUsagePanel(oldX, oldY);
                         break;
                 }
             }
@@ -74,19 +61,36 @@ public class Canvas extends JPanel {
         });
     }
 
-    public static Canvas getInstance() {
-        if (instance == null) {
-            synchronized(Canvas.class) {
-                if (instance == null) {
-                    instance = new Canvas();
-                }
-            }
-        }
-        return instance;
+    public void createClassPanel(int x, int y) {
+        classtable = new ClassTable(this);
+        classtable.setBounds(x,y,classtable.getWidth(),classtable.getHeight());
+        classtable.setVisible(true);
+        add(classtable);
+        panelList.add(classtable);
+        System.out.println("class added");
+        System.out.println(getMode());
+        revalidate();
+        repaint();
     }
 
-    public static void setMode(String m) {
+    public void createUsagePanel(int x, int y) {
+        oval = new Oval(this);
+        oval.setBounds(x,y,oval.getWidth(),oval.getHeight());
+        oval.setVisible(true);
+        add(oval);
+        panelList.add(oval);
+        System.out.println("useCase added");
+        System.out.println(getMode());
+        revalidate();
+        repaint();
+    }
+
+    public void setMode(String m) {
         mode = m;
         // System.out.println(mode.getName());
+    }
+
+    public String getMode() {
+        return mode;
     }
 }

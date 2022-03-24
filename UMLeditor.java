@@ -13,8 +13,8 @@ public class UMLeditor extends JFrame {
 
     public UMLeditor() {
         canvas = new Canvas();
-        menubar = new MenuBar();
-        toolbar = new ToolBar();
+        menubar = new MenuBar(canvas);
+        toolbar = new ToolBar(canvas);
     
         // test.setBounds(50, 50, 100, 70);
     
