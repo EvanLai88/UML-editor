@@ -93,8 +93,10 @@ public class Object extends JPanel {
             public void mouseDragged(MouseEvent e) {
                 currentX = e.getX();
                 currentY = e.getY();
+                canvas.unselectAll();
 
                 if (canvas.getMode() == "select") {
+                    setSelect(true);
                     setBounds(getBounds().x + (currentX-oldX), getBounds().y + (currentY-oldY), width, height);
                     revalidate();
                     repaint();
