@@ -74,9 +74,7 @@ public class Canvas extends JLayeredPane {
     }
 
     public void newPanelInit(Object o, int x, int y) {
-        for(Object obj: selectedPanel()){
-            obj.setSelect(false);
-        }
+        unselectAll();
         o.setBounds(x,y,o.getWidth(),o.getHeight());
         o.setVisible(true);
         add(o);
@@ -105,5 +103,11 @@ public class Canvas extends JLayeredPane {
             }
         }
         return selectedPanel;
+    }
+
+    public void unselectAll(){
+        for(Object obj: selectedPanel()){
+            obj.setSelect(false);
+        }
     }
 }

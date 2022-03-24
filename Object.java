@@ -63,10 +63,8 @@ public class Object extends JPanel {
                 // System.out.println(e.getY());
                 oldX = getBounds().x+e.getX();
                 oldY = getBounds().y+e.getY();
-                for(Object o:canvas.selectedPanel()){
-                    o.setSelect(false);
-                }
-                
+                canvas.unselectAll();
+
                 if (canvas.getMode() == "select") {
                     setSelect(true);
                 }
