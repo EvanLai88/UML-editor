@@ -63,24 +63,21 @@ public class Canvas extends JPanel {
 
     public void createClassPanel(int x, int y) {
         classtable = new ClassTable(this);
-        classtable.setBounds(x,y,classtable.getWidth(),classtable.getHeight());
-        classtable.setVisible(true);
-        add(classtable);
-        panelList.add(classtable);
-        System.out.println("class added");
-        System.out.println(getMode());
-        revalidate();
-        repaint();
+        newPanelInit(classtable, x, y);
     }
 
     public void createUsagePanel(int x, int y) {
         oval = new Oval(this);
-        oval.setBounds(x,y,oval.getWidth(),oval.getHeight());
-        oval.setVisible(true);
-        add(oval);
-        panelList.add(oval);
-        System.out.println("useCase added");
-        System.out.println(getMode());
+        newPanelInit(oval, x, y);
+    }
+
+    public void newPanelInit(Object o, int x, int y) {
+        o.setBounds(x,y,o.getWidth(),o.getHeight());
+        o.setVisible(true);
+        add(o);
+        panelList.add(o);
+        // System.out.println("class added");
+        // System.out.println(getMode());
         revalidate();
         repaint();
     }
