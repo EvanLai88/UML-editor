@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
+import javax.print.attribute.standard.PrinterLocation;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import javax.swing.JMenu;
@@ -71,6 +73,8 @@ public class MenuBar extends JMenuBar {
                     obj.setLocation(obj.getX()-x+10, obj.getY()-y+10);
                     composite.addPanel(obj);
                 }
+                canvas.revalidate();
+                canvas.repaint();
                 canvas.unselectAll();
             }
         });
@@ -82,12 +86,23 @@ public class MenuBar extends JMenuBar {
                     // JOptionPane.showMessageDialog(getParent(), "No Object selected!!");
                     return;
                 }
-                int x=3000, y=3000, x0=0, y0=0, width=0, height=0;
+                int x, y, width, height;
+                ArrayList<Object> tmpList = new ArrayList<Object>();
                 for(Object obj: canvas.updateSelectedPanel()){
                     if( obj instanceof Composite) {
-                        
+                        tmpList.clear();
+                        tmpList.addAll(((Composite)obj).getpanelList());
+                        for(Object object: tmpList) {
+                            ((Composite)obj).removePanel(object);
+                            object.setLocation(object.getX()+obj.getX(), object.getY()+obj.getY());
+                            canvas.addPanel(object);
+                        }
+                        canvas.removePanel(obj);
                     }
                 }
+                canvas.revalidate();
+                canvas.repaint();
+                canvas.unselectAll();
             }
         });
 

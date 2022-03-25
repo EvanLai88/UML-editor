@@ -42,4 +42,8 @@ public class Composite extends Object {
         panelList.remove(obj);
         obj.setSelect(false);
     }
+
+    public ArrayList<Object> getpanelList() {
+        return panelList;
+    }
 }
