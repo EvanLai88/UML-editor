@@ -24,6 +24,7 @@ public class Canvas extends JLayeredPane {
     private ClassTable classtable;
     private Rectangle2D rectangle = null;
     private ArrayList<Object> panelList, selectedPanel;
+    private ArrayList<Composite> compositeList, selectedComposite;
 
     public Canvas() {
         super();
@@ -35,6 +36,7 @@ public class Canvas extends JLayeredPane {
 
         panelList = new ArrayList<Object>();
         selectedPanel = new ArrayList<Object>();
+        compositeList = new ArrayList<Composite>();
         
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -201,11 +203,28 @@ public class Canvas extends JLayeredPane {
         return selectedPanel;
     }
 
+    public ArrayList<Composite> getCompositeList() {
+        return compositeList;
+    }
+
+    public ArrayList<Composite> updateSelectedComposite() {
+        selectedComposite.clear();
+        for (Composite com: compositeList) {
+            if (com.isSelected()) {
+                selectedComposite.add(com);
+            }
+        }
+        return selectedComposite;
+    }
+
     public void unselectAll(){
         for(Object obj: panelList){
             obj.setSelect(false);
             selectedPanel.remove(obj);
-            obj.unselectAll();
+        }
+        for(Composite com: compositeList) {
+            com.setSelect(false);
+            com.unselectAll();
         }
 
     }
@@ -219,5 +238,15 @@ public class Canvas extends JLayeredPane {
         remove(obj);
         panelList.remove(obj);
         obj.setSelect(false);
+    }
+
+    public void addComposite(Composite obj) {
+        add(obj);
+        compositeList.add(obj);
+    }
+
+    public void removeComposite(Composite obj) {
+        remove(obj);
+        compositeList.remove(obj);
     }
 }

@@ -11,7 +11,6 @@ import javax.swing.AbstractAction;
 
 public class ToolBar extends JToolBar {
     private Canvas canvas;
-    public UMLeditor uml;
     public JButton selectBtn, assoBtn, genBtn, comBtn, classBtn, useCaseBtn;
     public JButton mode = null;
     public ArrayList<JButton> BtnList;

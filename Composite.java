@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Composite extends Object {
     private ArrayList<Object> panelList;
+    private ArrayList<Composite> compositeList;
 
     public Composite(Canvas instance, String name, int x, int y, int width, int height) {
         super(instance, name, width+20, height+20);
@@ -22,11 +23,11 @@ public class Composite extends Object {
         g.drawRect(0, 0, getWidth(), getHeight());
     }
 
-    @Override
+    // @Override
     public void unselectAll() {
-        for(Object obj: panelList) {
-            obj.setSelect(false);
-            obj.unselectAll();
+        for(Composite composite: compositeList) {
+            composite.setSelect(false);
+            composite.unselectAll();
         }
     }
 
@@ -39,5 +40,9 @@ public class Composite extends Object {
         remove(obj);
         panelList.remove(obj);
         obj.setSelect(false);
+    }
+
+    public ArrayList<Object> getPanelList() {
+        return panelList;
     }
 }
