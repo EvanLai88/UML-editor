@@ -84,30 +84,10 @@ public class MenuBar extends JMenuBar {
                 }
                 int x=3000, y=3000, x0=0, y0=0, width=0, height=0;
                 for(Object obj: canvas.updateSelectedPanel()){
-                    if(obj.getX() < x) {
-                        x = obj.getX();
-                    }
-                    if(obj.getY() < y) {
-                        y = obj.getY();
-                    }
-                    if(obj.getX()+obj.getWidth() > x0) {
-                        x0=obj.getX()+obj.getWidth();
-                    }
-                    if(obj.getY()+obj.getHeight() > y0) {
-                        y0=obj.getY()+obj.getHeight();
+                    if( obj instanceof Composite) {
+                        
                     }
                 }
-                width = x0 - x;
-                height = y0 - y;
-                composite = new Composite(canvas, "Group"+String.valueOf(groupCount++), x, y, width, height);
-                canvas.addPanel(composite);
-                
-                for(Object obj: canvas.updateSelectedPanel()) {
-                    canvas.removePanel(obj);
-                    obj.setLocation(obj.getX()-x+10, obj.getY()-y+10);
-                    composite.addPanel(obj);
-                }
-                canvas.unselectAll();
             }
         });
 

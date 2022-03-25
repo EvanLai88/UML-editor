@@ -152,9 +152,9 @@ public class Object extends JPanel {
         s.setVisible(false);
     }
 
-    public void unselectAll() {
+    // public void unselectAll() {
 
-    }
+    // }
 
     // public Object getParent() {
     //     return parent;

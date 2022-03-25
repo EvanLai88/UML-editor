@@ -22,11 +22,13 @@ public class Composite extends Object {
         g.drawRect(0, 0, getWidth(), getHeight());
     }
 
-    @Override
+    // @Override
     public void unselectAll() {
         for(Object obj: panelList) {
             obj.setSelect(false);
-            obj.unselectAll();
+            if (obj instanceof Composite) {
+                ((Composite)obj).unselectAll();
+            }
         }
     }
 

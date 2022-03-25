@@ -205,7 +205,9 @@ public class Canvas extends JLayeredPane {
         for(Object obj: panelList){
             obj.setSelect(false);
             selectedPanel.remove(obj);
-            obj.unselectAll();
+            if(obj instanceof Composite) {
+                ((Composite)obj).unselectAll();
+            }
         }
 
     }
