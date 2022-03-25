@@ -4,6 +4,7 @@ import java.lang.Math;
 import java.lang.Thread;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
@@ -67,6 +68,7 @@ public class Canvas extends JLayeredPane {
             public void mouseReleased(MouseEvent e) {
                 int minX, minY, w, h;
                 int objX, objY, width, height;
+                Boolean containsPanel = false;
                 currentX = e.getX();
                 currentY = e.getY();
                 minX = Math.min(oldX, currentX);
@@ -81,19 +83,18 @@ public class Canvas extends JLayeredPane {
                         revalidate();
                         repaint();
                         for(Object obj: panelList) {
-                            objX = obj.getBounds().x;
-                            objY = obj.getBounds().y;
-                            width = obj.getBounds().width;
-                            height = obj.getBounds().height;
+                            objX = obj.getX();
+                            objY = obj.getY();
+                            width = obj.getWidth();
+                            height = obj.getHeight();
         
                             if (objX >= minX && objY >= minY && objX+width <= minX+w && objY+height <= minY+h) {
-                                if(obj.isSelected()){
-                                    obj.setSelect(false);
-                                }
-                                else {
-                                    obj.setSelect(true);
-                                }
+                                containsPanel = true;
                             }
+                        }
+                        if ( ! containsPanel ) {
+                            unselectAll();
+                            updateSelectedPanel();
                         }
                         break;
 
@@ -110,6 +111,7 @@ public class Canvas extends JLayeredPane {
             public void mouseDragged(MouseEvent e) {
                 if (mode == "select") {
                     int minX, minY, w, h;
+                    int objX, objY, width, height;
                     currentX = e.getX();
                     currentY = e.getY();
                     minX = Math.min(oldX, currentX);
@@ -119,6 +121,30 @@ public class Canvas extends JLayeredPane {
                     rectangle.setRect(minX, minY, w, h);
                     revalidate();
                     repaint();
+
+                    for(Object obj: panelList) {
+                        objX = obj.getX();
+                        objY = obj.getY();
+                        width = obj.getWidth();
+                        height = obj.getHeight();
+    
+                        if (objX >= minX && objY >= minY && objX+width <= minX+w && objY+height <= minY+h) {
+                            if( selectedPanel.contains(obj)){
+                                obj.setSelect(false);
+                            }
+                            else {
+                                obj.setSelect(true);
+                            }
+                        }
+                        else {
+                            if( selectedPanel.contains(obj)){
+                                obj.setSelect(true);
+                            }
+                            else {
+                                obj.setSelect(false);
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -148,9 +174,8 @@ public class Canvas extends JLayeredPane {
         unselectAll();
         o.setBounds(x,y,o.getWidth(),o.getHeight());
         o.setVisible(true);
-        add(o);
+        addPanel(o);
         moveToFront(o);
-        panelList.add(o);
         // System.out.println("class added");
         // System.out.println(getMode());
         revalidate();
@@ -166,7 +191,7 @@ public class Canvas extends JLayeredPane {
         return mode;
     }
 
-    public ArrayList<Object> selectedPanel() {
+    public ArrayList<Object> updateSelectedPanel() {
         selectedPanel.clear();
         for (Object o: panelList) {
             if (o.isSelected()) {
@@ -177,8 +202,22 @@ public class Canvas extends JLayeredPane {
     }
 
     public void unselectAll(){
-        for(Object obj: selectedPanel()){
+        for(Object obj: panelList){
             obj.setSelect(false);
+            selectedPanel.remove(obj);
+            obj.unselectAll();
         }
+
+    }
+
+    public void addPanel(Object obj) {
+        add(obj);
+        panelList.add(obj);
+    }
+
+    public void removePanel(Object obj) {
+        remove(obj);
+        panelList.remove(obj);
+        obj.setSelect(false);
     }
 }

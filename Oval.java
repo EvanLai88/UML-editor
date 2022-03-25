@@ -14,8 +14,5 @@ public class Oval extends Object {
         g.setColor(Color.BLACK);
         g.drawString(Name, 30, 35);
         g.drawOval(5, 5, 90, 60);
-    }
-
-
-    
+    }    
 }

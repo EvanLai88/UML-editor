@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
+import java.security.ProtectionDomain;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -9,6 +10,7 @@ import javax.swing.JPanel;
 
 public class Object extends JPanel {
     protected Canvas canvas;
+    protected Object parent;
     protected boolean select;
     protected String Name;
     protected Square p1, p2, p3, p4;
@@ -20,7 +22,7 @@ public class Object extends JPanel {
     public Object(Canvas instance, String name, int width, int height) {
         Name = name;
         canvas = instance;
-        setBackground(Color.WHITE);
+        setBackground(Color.white);
         setOpaque(false);
         setVisible(true);
         setLayout(null);
@@ -61,12 +63,13 @@ public class Object extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 // System.out.println(e.getX());
                 // System.out.println(e.getY());
-                oldX = getBounds().x+e.getX();
-                oldY = getBounds().y+e.getY();
+                oldX = getX()+e.getX();
+                oldY = getY()+e.getY();
                 canvas.unselectAll();
 
                 if (canvas.getMode() == "select") {
                     setSelect(true);
+                    canvas.updateSelectedPanel();
                 }
                 else if (canvas.getMode() == "associate") {
 
@@ -97,7 +100,7 @@ public class Object extends JPanel {
 
                 if (canvas.getMode() == "select") {
                     setSelect(true);
-                    setBounds(getBounds().x + (currentX-oldX), getBounds().y + (currentY-oldY), width, height);
+                    setBounds(getX() + (currentX-oldX), getY() + (currentY-oldY), width, height);
                     revalidate();
                     repaint();
                 }
@@ -126,7 +129,6 @@ public class Object extends JPanel {
         p2.setVisible(isSet);
         p3.setVisible(isSet);
         p4.setVisible(isSet);
-        
     }
 
     public boolean isSelected() {
@@ -149,4 +151,16 @@ public class Object extends JPanel {
         s.setOpaque(true);
         s.setVisible(false);
     }
+
+    public void unselectAll() {
+
+    }
+
+    // public Object getParent() {
+    //     return parent;
+    // }
+
+    // public void setParent(Object o) {
+    //     parent = o;
+    // }
 }
