@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class Object extends JPanel {
     protected Canvas canvas;
-    protected Object parent;
+    protected Object origin;
     protected boolean select;
     protected String Name;
     protected Square p1, p2, p3, p4;
@@ -152,15 +152,4 @@ public class Object extends JPanel {
         s.setVisible(false);
     }
 
-    // public void unselectAll() {
-
-    // }
-
-    // public Object getParent() {
-    //     return parent;
-    // }
-
-    // public void setParent(Object o) {
-    //     parent = o;
-    // }
 }
