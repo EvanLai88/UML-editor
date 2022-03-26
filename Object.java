@@ -97,10 +97,10 @@ public class Object extends JPanel {
             public void mouseDragged(MouseEvent e) {
                 currentX = e.getX();
                 currentY = e.getY();
-                canvas.unselectAll();
+                // canvas.unselectAll();
 
                 if (canvas.getMode() == "select") {
-                    getTopLevel().setSelect(true);
+                    // getTopLevel().setSelect(true);
                     getTopLevel().setLocation(getTopLevel().getX() + (currentX-oldX), getTopLevel().getY() + (currentY-oldY));
                     getTopLevel().revalidate();
                     getTopLevel().repaint();
