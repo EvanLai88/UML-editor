@@ -175,7 +175,6 @@ public class Canvas extends JLayeredPane {
         o.setBounds(x,y,o.getWidth(),o.getHeight());
         o.setVisible(true);
         addPanel(o);
-        moveToFront(o);
         // System.out.println("class added");
         // System.out.println(getMode());
         revalidate();
@@ -214,6 +213,7 @@ public class Canvas extends JLayeredPane {
 
     public void addPanel(Object obj) {
         add(obj);
+        moveToFront(obj);
         panelList.add(obj);
     }
 

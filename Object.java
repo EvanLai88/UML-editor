@@ -27,6 +27,7 @@ public class Object extends JPanel {
         setVisible(true);
         setLayout(null);
         setSize(width,height);
+        setOrigin(null);
         // label = new JLabel(name);
         // label.setBounds(x, y, Lwid, Lhei);
         // label.setVisible(true);
@@ -99,10 +100,10 @@ public class Object extends JPanel {
                 canvas.unselectAll();
 
                 if (canvas.getMode() == "select") {
-                    setSelect(true);
-                    setBounds(getX() + (currentX-oldX), getY() + (currentY-oldY), width, height);
-                    revalidate();
-                    repaint();
+                    getTopLevel().setSelect(true);
+                    getTopLevel().setLocation(getTopLevel().getX() + (currentX-oldX), getTopLevel().getY() + (currentY-oldY));
+                    getTopLevel().revalidate();
+                    getTopLevel().repaint();
                 }
                 else if (canvas.getMode() == "associate") {
 
@@ -152,4 +153,18 @@ public class Object extends JPanel {
         s.setVisible(false);
     }
 
+    public Object getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Object obj) {
+        origin = obj;
+    }
+    public Object getTopLevel() {
+        Object top = this;
+        while (top.getOrigin() != null) {
+            top = top.getOrigin();
+        }
+        return top;
+    }
 }

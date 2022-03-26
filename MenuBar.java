@@ -72,6 +72,7 @@ public class MenuBar extends JMenuBar {
                     canvas.removePanel(obj);
                     obj.setLocation(obj.getX()-x+10, obj.getY()-y+10);
                     composite.addPanel(obj);
+                    obj.setOrigin(composite);
                 }
                 canvas.revalidate();
                 canvas.repaint();
@@ -94,6 +95,7 @@ public class MenuBar extends JMenuBar {
                         tmpList.addAll(((Composite)obj).getpanelList());
                         for(Object object: tmpList) {
                             ((Composite)obj).removePanel(object);
+                            object.setOrigin(null);
                             object.setLocation(object.getX()+obj.getX(), object.getY()+obj.getY());
                             canvas.addPanel(object);
                         }
