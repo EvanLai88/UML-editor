@@ -24,7 +24,7 @@ public class Canvas extends JLayeredPane {
     private Oval oval;
     private ClassTable classtable;
     private Rectangle2D rectangle = null;
-    private ArrayList<Object> panelList, selectedPanel;
+    private ArrayList<Object> panelList, allPanelList, selectedPanel;
     private ArrayList<Line> lineList;
     private ArrayList<String> lines = new ArrayList<String>(Arrays.asList("associate", "general", "composite"));
     private JPanel lineStart, lineEnd;
@@ -56,6 +56,7 @@ public class Canvas extends JLayeredPane {
         mode = "";
 
         panelList = new ArrayList<Object>();
+        allPanelList = new ArrayList<Object>();
         selectedPanel = new ArrayList<Object>();
         lineList = new ArrayList<Line>();
         
@@ -215,11 +216,13 @@ public class Canvas extends JLayeredPane {
         add(obj);
         moveToFront(obj);
         panelList.add(obj);
+        allPanelList.add(obj);
     }
 
     public void removePanel(Object obj) {
         remove(obj);
         panelList.remove(obj);
+        // allPanelList.remove(obj);
         obj.setSelect(false);
     }
 
@@ -268,6 +271,20 @@ public class Canvas extends JLayeredPane {
         return lineEnd;
     }
 
+    public ArrayList<Object> getAllPanelList() {
+        return allPanelList;
+    }
+
+    public ArrayList<Object> getAllSelected() {
+        ArrayList<Object> selected = new ArrayList<Object>();
+        for(Object object: getAllPanelList()) {
+            if (object.isSelected()) {
+                selected.add(object);
+            }
+        }
+        return selected;
+    }
+    
     public ArrayList<Object> updateSelectedPanel() {
         selectedPanel.clear();
         for (Object o: panelList) {

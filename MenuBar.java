@@ -27,13 +27,17 @@ public class MenuBar extends JMenuBar {
         changeName.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (canvas.updateSelectedPanel().isEmpty()){
+                if (canvas.getAllSelected().isEmpty()){
                     JOptionPane.showMessageDialog(getParent(), "No Object selected!!");
+                    return;
+                }
+                if (canvas.getAllSelected().size() != 1) {
+                    JOptionPane.showMessageDialog(getParent(), "Edit one object at a time!!");
                     return;
                 }
                 String name = JOptionPane.showInputDialog(getParent(), "Change name", null);
                 // System.out.println(name);
-                for(Object obj: canvas.updateSelectedPanel()) {
+                for(Object obj: canvas.getAllSelected()) {
                     obj.Name = name;
                     canvas.revalidate();
                     canvas.repaint();
