@@ -87,6 +87,9 @@ public class MenuBar extends JMenuBar {
                     // JOptionPane.showMessageDialog(getParent(), "No Object selected!!");
                     return;
                 }
+                if (canvas.updateSelectedPanel().size() != 1) {
+                    return;
+                }
                 int x, y, width, height;
                 ArrayList<Object> tmpList = new ArrayList<Object>();
                 for(Object obj: canvas.updateSelectedPanel()){
