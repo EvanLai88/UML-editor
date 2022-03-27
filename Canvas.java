@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Predicate;
 import java.lang.Math;
 import java.lang.Thread;
@@ -24,6 +25,27 @@ public class Canvas extends JLayeredPane {
     private ClassTable classtable;
     private Rectangle2D rectangle = null;
     private ArrayList<Object> panelList, selectedPanel;
+    private ArrayList<Line> lineList;
+    private ArrayList<String> lines = new ArrayList<String>(Arrays.asList("associate", "general", "composite"));
+    private JPanel lineStart, lineEnd;
+    public Callback setStart = new Callback() {
+
+        @Override
+        public void setEndPoint(JPanel jp) {
+            setLineStart(jp);
+        }
+    };
+    public Callback setEnd = new Callback() {
+
+        @Override
+        public void setEndPoint(JPanel jp) {
+            setLineEnd(jp);
+        }
+    };
+
+    public interface Callback {
+        void setEndPoint(JPanel jp);
+    }
 
     public Canvas() {
         super();
@@ -35,6 +57,7 @@ public class Canvas extends JLayeredPane {
 
         panelList = new ArrayList<Object>();
         selectedPanel = new ArrayList<Object>();
+        lineList = new ArrayList<Line>();
         
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -154,9 +177,27 @@ public class Canvas extends JLayeredPane {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        if(rectangle != null) {
-            g2.setColor(Color.BLACK);
-            g2.draw(rectangle);
+        
+        if(mode == "select") {
+            if(rectangle != null) {
+                g2.setColor(Color.BLACK);
+                g2.draw(rectangle);
+            }
+        }
+        else if(lines.contains(mode)) {
+            for(Line line: lineList) {
+                line.drawLine(g2);
+            }
+        }
+
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        Graphics2D g2 = (Graphics2D) g;
+        for(Line line: lineList) {
+            line.drawLine(g2);
         }
     }
 
@@ -164,30 +205,67 @@ public class Canvas extends JLayeredPane {
         classtable = new ClassTable(this);
         newPanelInit(classtable, x, y);
     }
-
+    
     public void createUsagePanel(int x, int y) {
         oval = new Oval(this);
         newPanelInit(oval, x, y);
     }
+    
+    public void addPanel(Object obj) {
+        add(obj);
+        moveToFront(obj);
+        panelList.add(obj);
+    }
+
+    public void removePanel(Object obj) {
+        remove(obj);
+        panelList.remove(obj);
+        obj.setSelect(false);
+    }
 
     public void newPanelInit(Object o, int x, int y) {
         unselectAll();
-        o.setBounds(x,y,o.getWidth(),o.getHeight());
+        o.setLocation(x,y);
         o.setVisible(true);
         addPanel(o);
-        // System.out.println("class added");
-        // System.out.println(getMode());
         revalidate();
         repaint();
     }
 
+    public ArrayList<Line> getLineList() {
+        return lineList;
+    }
+
+    public void addLine(Line line) {
+        lineList.add(line);
+    }
+
+    public void removeLine(Line line) {
+        lineList.remove(line);
+    }
+
     public void setMode(String m) {
         mode = m;
-        // System.out.println(mode.getName());
     }
 
     public String getMode() {
         return mode;
+    }
+
+    public void setLineStart(JPanel jp) {
+        lineStart = jp;
+    }
+
+    public JPanel getLineStart() {
+        return lineStart;
+    }
+    
+    public void setLineEnd(JPanel jp) {
+        lineEnd = jp;
+    }
+
+    public JPanel getLineEnd() {
+        return lineEnd;
     }
 
     public ArrayList<Object> updateSelectedPanel() {
@@ -208,18 +286,5 @@ public class Canvas extends JLayeredPane {
                 ((Composite)obj).unselectAll();
             }
         }
-
-    }
-
-    public void addPanel(Object obj) {
-        add(obj);
-        moveToFront(obj);
-        panelList.add(obj);
-    }
-
-    public void removePanel(Object obj) {
-        remove(obj);
-        panelList.remove(obj);
-        obj.setSelect(false);
     }
 }

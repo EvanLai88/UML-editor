@@ -7,6 +7,7 @@ public class Composite extends Object {
 
     public Composite(Canvas instance, String name, int x, int y, int width, int height) {
         super(instance, name, width+20, height+20);
+        isComposite = true;
         setLocation(x-10, y-10);
         setOpaque(true);
         panelList = new ArrayList<Object>();
