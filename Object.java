@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class Object extends JPanel {
     protected Canvas canvas;
@@ -19,6 +20,10 @@ public class Object extends JPanel {
     protected int oldX, oldY, currentX, currentY;
     protected ArrayList<Object> objectList;
     protected final ArrayList<String> lines = new ArrayList<String>(Arrays.asList("associate", "general", "composite"));
+
+    protected Object outer() {
+        return Object.this;
+    }
 
     public Object(Canvas instance, String name, int width, int height) {
         Name = name;
@@ -124,7 +129,8 @@ public class Object extends JPanel {
                     if(isComposite) {
                         return;
                     }
-                    findPort(x, y, canvas.setEnd);
+                    // findPort(x, y, canvas.setEnd);
+                    canvas.setLineEnd(outer());;
                 }
             }
 
@@ -142,8 +148,10 @@ public class Object extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                // System.out.println(getClass().getName()+"mouseReleased");
-                // System.out.println(lines.contains(canvas.getMode()));
+                int x = SwingUtilities.convertPoint(outer(), e.getX(), e.getY(), canvas.getLineEnd()).x;
+                int y = SwingUtilities.convertPoint(outer(), e.getX(), e.getY(), canvas.getLineEnd()).y;
+                // System.out.println(x);
+                // System.out.println(y);
                 if (lines.contains(canvas.getMode())) {
                     // System.out.println(isComposite);
                     if(isComposite) {
@@ -154,6 +162,14 @@ public class Object extends JPanel {
                         canvas.setLineEnd(null);
                         return;
                     }
+                    
+                    if(canvas.getLineStart() == canvas.getLineEnd()) {
+                        canvas.setLineStart(null);
+                        canvas.setLineEnd(null);
+                        return;
+                    }
+
+                    ((Object)canvas.getLineEnd()).findPort(x, y, canvas.setEnd);
                     switch (canvas.getMode()) {
                         case "associate":
                             canvas.addLine(new AssociateLine(canvas, canvas.getLineStart(), canvas.getLineEnd()));
