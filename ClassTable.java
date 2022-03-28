@@ -15,11 +15,11 @@ public class ClassTable extends Object {
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.WHITE);
-        g.fillRect(5, 5, 90, 120);
+        g.fillRect(5, 5, getShapeWidth(), getShapeHeight());
         g.setColor(Color.BLACK);
         g.drawString(Name, 10, 30);
-        g.drawRect(5, 5, 90, 40);
-        g.drawRect(5, 45, 90, 40);
-        g.drawRect(5, 85, 90, 40);
+        g.drawRect(5, 5, getShapeWidth(), getShapeHeight()/3);
+        g.drawRect(5, 45, getShapeWidth(), getShapeHeight()/3);
+        g.drawRect(5, 85, getShapeWidth(), getShapeHeight()/3);
     }
 }

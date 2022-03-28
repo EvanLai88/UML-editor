@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
+import java.text.NumberFormat.Style;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,6 +19,7 @@ public class Object extends JPanel {
     protected JLabel label;
     protected JPanel ports;
     protected int oldX, oldY, currentX, currentY;
+    protected int borderSize = 5;
     protected ArrayList<Object> objectList;
     protected final ArrayList<String> lines = new ArrayList<String>(Arrays.asList("associate", "general", "composite"));
 
@@ -179,6 +181,11 @@ public class Object extends JPanel {
                     }
 
                     ((Object)canvas.getLineEnd()).findPort(x, y, canvas.setEnd);
+                    if(canvas.getLineStart() == null || canvas.getLineEnd() == null) {
+                        canvas.setLineStart(null);
+                        canvas.setLineEnd(null);
+                        return;
+                    }
                     switch (canvas.getMode()) {
                         case "associate":
                             canvas.addLine(new AssociateLine(canvas, canvas.getLineStart(), canvas.getLineEnd()));
@@ -241,6 +248,14 @@ public class Object extends JPanel {
         });
     }
 
+    public int getShapeWidth() {
+        return getWidth()-(borderSize*2);
+    }
+
+    public int getShapeHeight() {
+        return getHeight()-(borderSize*2);
+    }
+
     public void setSelect(boolean isSet) {
         select = isSet;
         p1.setVisible(isSet);
@@ -287,6 +302,12 @@ public class Object extends JPanel {
      * (0, height)------------------(width, height)
      */
     public void findPort(int x, int y, Canvas.Callback callback) {
+        if (this instanceof Oval) {
+            if( Math.pow((getShapeHeight()/2)*(x-(getWidth()/2)), 2) + Math.pow((getShapeWidth()/2)*(y-(getHeight()/2)), 2) > Math.pow((getShapeWidth()/2)*(getShapeHeight()/2),2)) {
+                canvas.setLineEnd(null);
+                return;
+            }
+        }
         if(x*getHeight()-y*getWidth() > 0){
             if(x*getHeight()+y*getWidth() > getWidth()*getHeight()){
                 callback.setEndPoint(p4);

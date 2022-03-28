@@ -10,9 +10,9 @@ public class Oval extends Object {
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.WHITE);
-        g.fillOval(5, 5, 90, 60);
+        g.fillOval(5, 5, getShapeWidth(), getShapeHeight());
         g.setColor(Color.BLACK);
         g.drawString(Name, 30, 35);
-        g.drawOval(5, 5, 90, 60);
-    }    
+        g.drawOval(5, 5, getShapeWidth(), getShapeHeight());
+    }
 }
