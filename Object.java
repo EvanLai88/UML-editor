@@ -73,6 +73,9 @@ public class Object extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                if(! SwingUtilities.isLeftMouseButton(e)) {
+                    return;
+                }
                 oldX = e.getX();
                 oldY = e.getY();
                 // System.out.println(oldX);
@@ -90,6 +93,9 @@ public class Object extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 // System.out.println(e.getX());
                 // System.out.println(e.getY());
+                if(! SwingUtilities.isLeftMouseButton(e)) {
+                    return;
+                }
                 oldX = getX()+e.getX();
                 oldY = getY()+e.getY();
                 canvas.unselectAll();
@@ -148,6 +154,9 @@ public class Object extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                if(! SwingUtilities.isLeftMouseButton(e)) {
+                    return;
+                }
                 int x = SwingUtilities.convertPoint(outer(), e.getX(), e.getY(), canvas.getLineEnd()).x;
                 int y = SwingUtilities.convertPoint(outer(), e.getX(), e.getY(), canvas.getLineEnd()).y;
                 // System.out.println(x);
@@ -198,6 +207,9 @@ public class Object extends JPanel {
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                if(! SwingUtilities.isLeftMouseButton(e)) {
+                    return;
+                }
                 currentX = e.getX();
                 currentY = e.getY();
                 // canvas.unselectAll();

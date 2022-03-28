@@ -14,6 +14,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 import javax.swing.JLayeredPane;
@@ -62,6 +63,9 @@ public class Canvas extends JLayeredPane {
         
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
+                if(! SwingUtilities.isLeftMouseButton(e)) {
+                    return;
+                }
                 oldX = e.getX();
                 oldY = e.getY();
                 rectangle = new Rectangle2D.Double(oldX, oldY, 0, 0);
@@ -71,6 +75,9 @@ public class Canvas extends JLayeredPane {
             
             public void mouseClicked(MouseEvent e) {
                 // System.out.println("Clicked");
+                if(! SwingUtilities.isLeftMouseButton(e)) {
+                    return;
+                }
                 switch(mode) {
                     case "":
                         break;
@@ -90,6 +97,9 @@ public class Canvas extends JLayeredPane {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                if(! SwingUtilities.isLeftMouseButton(e)) {
+                    return;
+                }
                 int minX, minY, w, h;
                 int objX, objY, width, height;
                 Boolean containsPanel = false;
@@ -133,6 +143,9 @@ public class Canvas extends JLayeredPane {
         
         addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent e) {
+                if(! SwingUtilities.isLeftMouseButton(e)) {
+                    return;
+                }
                 if (mode == "select") {
                     int minX, minY, w, h;
                     int objX, objY, width, height;
