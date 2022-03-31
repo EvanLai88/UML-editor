@@ -229,6 +229,9 @@ public class Canvas extends JLayeredPane {
         add(obj);
         moveToFront(obj);
         panelList.add(obj);
+        if(allPanelList.contains(obj)) {
+            return;
+        }
         allPanelList.add(obj);
     }
 
