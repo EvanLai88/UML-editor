@@ -5,21 +5,19 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class Line {
-    protected Canvas canvas;
     protected JPanel start, end;
 
-    public Line(Canvas c, JPanel s, JPanel e) {
-        canvas = c;
+    public Line(JPanel s, JPanel e) {
         start = s;
         end = e;
     }
 
     public Point getStartPortPosition() {
-        return SwingUtilities.convertPoint(start, start.getWidth()/2, start.getHeight()/2, canvas);
+        return SwingUtilities.convertPoint(start, start.getWidth()/2, start.getHeight()/2, Canvas.getInstance());
     }
     
     public Point getEndPortPosition() {
-        return SwingUtilities.convertPoint(end, end.getWidth()/2, end.getHeight()/2, canvas);
+        return SwingUtilities.convertPoint(end, end.getWidth()/2, end.getHeight()/2, Canvas.getInstance());
     }
 
     public void drawLine(Graphics2D g2) {}

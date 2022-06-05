@@ -11,15 +11,14 @@ import javax.swing.AbstractAction;
 
 public class ToolBar extends JToolBar {
     private Canvas canvas;
-    public UMLeditor uml;
     public JButton selectBtn, assoBtn, genBtn, comBtn, classBtn, useCaseBtn;
     public JButton mode = null;
     public ArrayList<JButton> BtnList;
     public Color unSet = Color.LIGHT_GRAY;
     public Color set = Color.BLACK;
 
-    public ToolBar(Canvas instance) {
-        canvas = instance;
+    public ToolBar() {
+        canvas = Canvas.getInstance();
         selectBtn = new JButton(new ImageIcon("img/select.png"));
         assoBtn = new JButton(new ImageIcon("img/associate.png"));
         genBtn = new JButton(new ImageIcon("img/general.png"));

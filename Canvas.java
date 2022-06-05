@@ -20,7 +20,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLayeredPane;
 
 public class Canvas extends JLayeredPane {
-    private  String mode;
+    private static volatile Canvas instance = null;
+    private String mode;
     private int oldX, oldY, currentX, currentY;
     private Oval oval;
     private ClassTable classtable;
@@ -47,8 +48,15 @@ public class Canvas extends JLayeredPane {
     public interface Callback {
         void setEndPoint(JPanel jp);
     }
+    
+    public static synchronized Canvas getInstance() {
+        if (instance == null) {
+            instance = new Canvas();
+        }
+        return instance;
+    }
 
-    public Canvas() {
+    private Canvas() {
         super();
         setLayout(null);
         setBackground(Color.WHITE);
@@ -216,12 +224,12 @@ public class Canvas extends JLayeredPane {
     }
 
     public void createClassPanel(int x, int y) {
-        classtable = new ClassTable(this);
+        classtable = new ClassTable();
         newPanelInit(classtable, x, y);
     }
     
     public void createUsagePanel(int x, int y) {
-        oval = new Oval(this);
+        oval = new Oval();
         newPanelInit(oval, x, y);
     }
     
@@ -315,9 +323,7 @@ public class Canvas extends JLayeredPane {
         for(Object obj: panelList){
             obj.setSelect(false);
             selectedPanel.remove(obj);
-            if(obj instanceof Composite) {
-                ((Composite)obj).unselectAll();
-            }
+            obj.unselectAll();
         }
     }
 }

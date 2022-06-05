@@ -7,8 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ClassTable extends Object {
-    public ClassTable(Canvas canvas) {
-        super(canvas, "Object Name", 100, 130);
+    public ClassTable() {
+        super("Object Name", 100, 130);
+        shape = "Rectangle";
     }
 
     @Override

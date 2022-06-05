@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 
 public class Object extends JPanel {
     protected Canvas canvas;
+    protected String shape;
     protected Object origin;
     protected boolean select, isComposite;
     protected String Name;
@@ -27,9 +28,9 @@ public class Object extends JPanel {
         return Object.this;
     }
 
-    public Object(Canvas instance, String name, int width, int height) {
+    public Object(String name, int width, int height) {
         Name = name;
-        canvas = instance;
+        canvas = Canvas.getInstance();
         isComposite = false;
         setBackground(Color.white);
         setOpaque(false);
@@ -188,13 +189,13 @@ public class Object extends JPanel {
                     }
                     switch (canvas.getMode()) {
                         case "associate":
-                            canvas.addLine(new AssociateLine(canvas, canvas.getLineStart(), canvas.getLineEnd()));
+                            canvas.addLine(new AssociateLine(canvas.getLineStart(), canvas.getLineEnd()));
                             break;
                         case "composite":
-                            canvas.addLine(new CompositeLine(canvas, canvas.getLineStart(), canvas.getLineEnd()));
+                            canvas.addLine(new CompositeLine(canvas.getLineStart(), canvas.getLineEnd()));
                             break;
                         case "general":
-                            canvas.addLine(new GeneralLine(canvas, canvas.getLineStart(), canvas.getLineEnd()));
+                            canvas.addLine(new GeneralLine(canvas.getLineStart(), canvas.getLineEnd()));
                             break;
                     }
                     // for(Line l: canvas.getLineList()) {
@@ -291,6 +292,9 @@ public class Object extends JPanel {
         return top;
     }
 
+    public void unselectAll() {
+        setSelect(false);
+    }
 
     /**
      * (0, 0)-----------------------(width, 0)
@@ -302,7 +306,7 @@ public class Object extends JPanel {
      * (0, height)------------------(width, height)
      */
     public void findPort(int x, int y, Canvas.Callback callback) {
-        if (this instanceof Oval) {
+        if (this.shape == "Oval") {
             if( Math.pow((getShapeHeight()/2)*(x-(getWidth()/2)), 2) + Math.pow((getShapeWidth()/2)*(y-(getHeight()/2)), 2) > Math.pow((getShapeWidth()/2)*(getShapeHeight()/2),2)) {
                 canvas.setLineEnd(null);
                 return;

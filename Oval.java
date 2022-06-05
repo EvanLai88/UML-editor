@@ -2,8 +2,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Oval extends Object {
-    public Oval(Canvas canvas) {
-        super(canvas, "Usage", 100, 70);
+    public Oval() {
+        super("Usage", 100, 70);
+        shape = "Oval";
     }
     
     @Override

@@ -11,9 +11,9 @@ public class UMLeditor extends JFrame {
     private ToolBar toolbar;
 
     public UMLeditor() {
-        canvas = new Canvas();
-        menubar = new MenuBar(canvas);
-        toolbar = new ToolBar(canvas);
+        canvas = Canvas.getInstance();
+        menubar = new MenuBar();
+        toolbar = new ToolBar();
     
         setLayout(new BorderLayout());
         add(menubar, BorderLayout.NORTH);
@@ -31,9 +31,5 @@ public class UMLeditor extends JFrame {
         mainWindow.setLocationRelativeTo(null);
         mainWindow.setResizable(false);
         mainWindow.setVisible(true);
-    }
-
-    public void changeMode() {
-
     }
 }

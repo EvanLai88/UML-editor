@@ -3,8 +3,8 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 public class CompositeLine extends Line {
-    public CompositeLine(Canvas c, JPanel s, JPanel e) {
-        super(c, s, e);
+    public CompositeLine(JPanel s, JPanel e) {
+        super(s, e);
     }
 
     @Override

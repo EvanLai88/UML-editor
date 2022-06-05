@@ -3,8 +3,8 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 public class AssociateLine extends Line {
-    public AssociateLine(Canvas c, JPanel s, JPanel e) {
-        super(c, s, e);
+    public AssociateLine(JPanel s, JPanel e) {
+        super(s, e);
     }
 
     @Override

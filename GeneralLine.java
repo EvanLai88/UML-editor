@@ -4,8 +4,8 @@ import java.awt.geom.GeneralPath;
 import javax.swing.JPanel;
 
 public class GeneralLine extends Line {
-    public GeneralLine(Canvas c, JPanel s, JPanel e) {
-        super(c, s, e);
+    public GeneralLine(JPanel s, JPanel e) {
+        super(s, e);
     }
     
     @Override

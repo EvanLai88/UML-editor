@@ -15,8 +15,8 @@ public class MenuBar extends JMenuBar {
     private JMenuItem changeName, group, ungroup;
     private int groupCount = 0;
 
-    public MenuBar(Canvas instance) {
-        canvas = instance;
+    public MenuBar() {
+        canvas = Canvas.getInstance();
         fileMenu = new JMenu("File");
         editMenu = new JMenu("Edit");
 
@@ -69,7 +69,7 @@ public class MenuBar extends JMenuBar {
                 }
                 width = x0 - x;
                 height = y0 - y;
-                composite = new Composite(canvas, "Group"+String.valueOf(groupCount++), x, y, width, height);
+                composite = new Composite("Group"+String.valueOf(groupCount++), x, y, width, height);
                 canvas.addPanel(composite);
                 
                 for(Object obj: canvas.updateSelectedPanel()) {
@@ -97,7 +97,7 @@ public class MenuBar extends JMenuBar {
                 int x, y, width, height;
                 ArrayList<Object> tmpList = new ArrayList<Object>();
                 for(Object obj: canvas.updateSelectedPanel()){
-                    if( obj instanceof Composite) {
+                    if( obj.isComposite) {
                         tmpList.clear();
                         tmpList.addAll(((Composite)obj).getpanelList());
                         for(Object object: tmpList) {
