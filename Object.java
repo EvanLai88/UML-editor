@@ -175,18 +175,22 @@ public class Object extends JPanel {
                         return;
                     }
                     
-                    if(canvas.getLineStart() == canvas.getLineEnd()) {
-                        canvas.setLineStart(null);
-                        canvas.setLineEnd(null);
-                        return;
-                    }
-
                     ((Object)canvas.getLineEnd()).findPort(x, y, canvas.setEnd);
                     if(canvas.getLineStart() == null || canvas.getLineEnd() == null) {
                         canvas.setLineStart(null);
                         canvas.setLineEnd(null);
                         return;
                     }
+
+                    System.out.println(canvas.getLineStart() == canvas.getLineEnd());
+                    System.out.println(canvas.getLineStart());
+                    System.out.println(canvas.getLineEnd());
+                    if(canvas.getLineStart() == canvas.getLineEnd()) {
+                        canvas.setLineStart(null);
+                        canvas.setLineEnd(null);
+                        return;
+                    }
+
                     switch (canvas.getMode()) {
                         case "associate":
                             canvas.addLine(new AssociateLine(canvas.getLineStart(), canvas.getLineEnd()));
